@@ -1,87 +1,146 @@
-<script setup lang="ts">
-import HelloWorld from "./components/HelloWorld.vue";
-import TheWelcome from "./components/TheWelcome.vue";
-</script>
-
 <template>
   <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="./assets/logo.svg"
-      width="125"
-      height="125"
-    />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it! :-)" />
-    </div>
+    <!-- There is not header in this app but this will stay as a placeholder. -->
   </header>
 
   <main>
-    <TheWelcome />
+    <div class="comment-container">
+      <div class="vote-container">
+        <button>+</button>
+        <div class="score">12</div>
+        <button>-</button>
+      </div>
+      <div class="content-container">
+        <div class="info-container">
+          <div class="user-info-container">
+            <img
+              class="user-avatar"
+              src="./assets/images/avatars/image-amyrobson.webp"
+              alt=""
+            />
+            <div class="user-name">amyrobson</div>
+            <div class="created-at">1 month ago</div>
+          </div>
+          <div class="action-button-container">
+            <button class="reply-button">
+              <img src="./assets/images/icon-reply.svg" alt="" />Reply
+            </button>
+          </div>
+        </div>
+
+        <div class="text-container">
+          Impressive! Though it seems the drag feature could be improved. But
+          overall it looks incredible. You've nailed the design and the
+          responsiveness at various breakpoints works really well.
+        </div>
+      </div>
+    </div>
   </main>
 </template>
 
+<script setup lang="ts"></script>
+
 <style>
 @import "./assets/base.css";
-
 #app {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
 }
 
-header {
-  line-height: 1.5;
+body {
+  display: flex;
+  place-items: center;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.comment-container,
+.info-container,
+.user-info-container,
+.action-button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: var(--paragraph-fs);
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
+.comment-container {
+  border-radius: 5px;
+  background-color: white;
+  padding: 1.2rem;
+  max-width: 80ch;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+.vote-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--neutral-very-light-gray);
+  border-radius: 5px;
+  padding: 5px;
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+.vote-container button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-light-grayish-blue);
+}
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+.vote-container button:hover {
+  color: var(--primary-moderate-blue);
+}
 
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+.score {
+  color: var(--primary-moderate-blue);
+  font-weight: 500;
+  margin: 0.5rem 0;
+}
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.content-container {
+  margin-left: 1.5rem;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+.info-container {
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.user-avatar {
+  height: 2rem;
+}
+
+.user-name {
+  margin-left: 1rem;
+  color: black;
+  font-weight: 500;
+}
+
+.created-at {
+  margin-left: 1rem;
+  color: var(--neutral-grayish-blue);
+}
+
+.reply-button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: var(--primary-moderate-blue);
+  font-family: var(--main-font-family), sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+}
+.reply-button img {
+  margin-right: 0.5rem;
+}
+
+.reply-button:hover {
+  filter: opacity(0.5);
+}
+
+.text-container {
+  color: var(--neutral-grayish-blue);
+  width: 60ch;
+  line-height: 1.25rem;
 }
 </style>
