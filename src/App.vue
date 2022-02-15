@@ -4,22 +4,26 @@
   </header>
 
   <main>
-    <div class="comment-container">
+    <div
+      class="comment-container"
+      v-for="comment in comments"
+      :key="comment.id"
+    >
       <div class="vote-container">
-        <button>+</button>
-        <div class="score">12</div>
-        <button>-</button>
+        <button class="upvote-button">+</button>
+        <div class="score">{{ comment.score }}</div>
+        <button class="downvote-button">-</button>
       </div>
       <div class="content-container">
         <div class="info-container">
           <div class="user-info-container">
             <img
               class="user-avatar"
-              src="./assets/images/avatars/image-amyrobson.webp"
-              alt=""
+              :src="getUserAvatar(comment.user.image.webp).pathname"
+              alt="User avatar"
             />
-            <div class="user-name">amyrobson</div>
-            <div class="created-at">1 month ago</div>
+            <div class="user-name">{{ comment.user.username }}</div>
+            <div class="created-at">{{ comment.createdAt }}</div>
           </div>
           <div class="action-button-container">
             <button class="reply-button">
@@ -29,16 +33,73 @@
         </div>
 
         <div class="text-container">
-          Impressive! Though it seems the drag feature could be improved. But
-          overall it looks incredible. You've nailed the design and the
-          responsiveness at various breakpoints works really well.
+          {{ comment.content }}
         </div>
       </div>
     </div>
   </main>
 </template>
 
-<script setup lang="ts"></script>
+<script lang="ts">
+import { defineComponent } from "vue";
+import data from "./assets/data.json";
+
+interface Image {
+  png: string;
+  webp: string;
+}
+
+interface User {
+  image: Image;
+  username: string;
+}
+
+interface Comment {
+  id: number;
+  content: string;
+  createdAt: string;
+  score: number;
+  user: User;
+  replies: Reply[];
+}
+
+interface Reply {
+  id: number;
+  content: string;
+  createdAt: string;
+  score: number;
+  replyingTo: string;
+  user: User;
+}
+
+export default defineComponent({
+  setup() {
+    data.comments.push({
+      id: 3,
+      content: "New comment",
+      createdAt: "just now",
+      score: 12,
+      user: {
+        image: {
+          png: "./assets/images/avatars/image-amyrobson.png",
+          webp: "./assets/images/avatars/image-amyrobson.webp",
+        },
+        username: "amyrobson",
+      },
+      replies: [],
+    });
+
+    function getUserAvatar(imageUrl: string): URL {
+      return new URL(imageUrl, import.meta.url);
+    };
+
+    return {
+      comments: data.comments,
+      getUserAvatar,
+    };
+  },
+});
+</script>
 
 <style>
 @import "./assets/base.css";

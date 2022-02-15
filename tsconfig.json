@@ -5,7 +5,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+
     }
   },
 
@@ -16,5 +17,6 @@
     {
       "path": "./tsconfig.vitest.json"
     }
-  ]
+  ],
+  "resolveJsonModule": true,
 }
