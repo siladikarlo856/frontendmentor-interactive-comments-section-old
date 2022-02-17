@@ -1,30 +1,31 @@
 <template>
-  <div class="comment-container" v-for="comment in comments" :key="comment.id">
-    <div class="vote-container">
-      <button class="upvote-button">+</button>
-      <div class="score">{{ comment.score }}</div>
-      <button class="downvote-button">-</button>
-    </div>
-    <div class="content-container">
-      <div class="info-container">
-        <div class="user-info-container">
-          <img
-            class="user-avatar"
-            :src="getUserAvatar(comment.user.image.webp)"
-            alt="User avatar"
-          />
-          <div class="user-name">{{ comment.user.username }}</div>
-          <div class="created-at">{{ comment.createdAt }}</div>
-        </div>
-        <div class="action-button-container">
-          <button class="reply-button">
-            <img src="@/assets/images/icon-reply.svg" alt="" />Reply
-          </button>
-        </div>
+  <div class="comments-container" v-for="comment in comments" :key="comment.id">
+    <div class="comment-container">
+      <div class="vote-container">
+        <button class="upvote-button">+</button>
+        <div class="score">{{ comment.score }}</div>
+        <button class="downvote-button">-</button>
       </div>
-
-      <div class="text-container">
-        {{ comment.content }}
+      <div class="content-container">
+        <div class="info-container">
+          <div class="user-info-container">
+            <img
+              class="user-avatar"
+              :src="getUserAvatar(comment.user.image.webp)"
+              alt="User avatar"
+            />
+            <div class="user-name">{{ comment.user.username }}</div>
+            <div class="created-at">{{ comment.createdAt }}</div>
+          </div>
+          <div class="action-button-container">
+            <button class="reply-button">
+              <img src="@/assets/images/icon-reply.svg" alt="" />Reply
+            </button>
+          </div>
+        </div>
+        <div class="text-container">
+          {{ comment.content }}
+        </div>
       </div>
     </div>
   </div>
@@ -32,44 +33,18 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import data from "@/assets/data.json";
-
-interface Image {
-  png: string;
-  webp: string;
-}
-
-interface User {
-  image: Image;
-  username: string;
-}
-
-interface Comment {
-  id: number;
-  content: string;
-  createdAt: string;
-  score: number;
-  user: User;
-  replies: Reply[];
-}
-
-interface Reply {
-  id: number;
-  content: string;
-  createdAt: string;
-  score: number;
-  replyingTo: string;
-  user: User;
-}
+import { useStore } from "@/stores/store";
 
 export default defineComponent({
   setup() {
+    const mainStore = useStore();
+
     function getUserAvatar(imageUrl: string): URL {
       return new URL(`../${imageUrl}`, import.meta.url);
     }
 
     return {
-      comments: data.comments,
+      comments: mainStore.comments,
       getUserAvatar,
     };
   },
@@ -78,13 +53,9 @@ export default defineComponent({
 
 <style>
 @import "@/assets/base.css";
-#app {
-  margin: 0 auto;
-}
 
-body {
-  display: flex;
-  place-items: center;
+.comments-container {
+  margin-bottom: 1rem;
 }
 
 .comment-container,
@@ -97,7 +68,7 @@ body {
   font-size: var(--paragraph-fs);
 }
 
-.comment-container {
+.comments-container {
   border-radius: 5px;
   background-color: white;
   padding: 1.2rem;

@@ -38,6 +38,8 @@
   --font-weight-light: 400;
   --font-weight-normal: 500;
   --font-weight-bold: 700;
+
+  --boder-radius: 7px;
 }
 
 /* semantic color variables for this project */
