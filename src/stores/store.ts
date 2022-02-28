@@ -16,7 +16,7 @@ export const useStore = defineStore("mainStore", () => {
       id: comments.value.length,
       replies: [],
       score: 0,
-      user: currentUser,
+      user: currentUser.value,
   }
   comments.value.push(newCommentObj);
 }
