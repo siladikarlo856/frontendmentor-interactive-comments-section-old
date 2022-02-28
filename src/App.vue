@@ -6,10 +6,7 @@
   <main>
     <Comments />
     <div class="new-comment-container">
-      <img
-        class="user-avatar-container"
-        src="@/assets/images/avatars/image-juliusomo.webp"
-      />
+      <img class="user-avatar-container" src="@/assets/images/avatars/image-juliusomo.webp" />
 
       <textarea
         name="new-comment-content"
@@ -19,13 +16,7 @@
         v-model="newCommentContent"
       ></textarea>
 
-      <button
-        id="new-comment-form"
-        class="new-comment-button"
-        @click="addComment()"
-      >
-        SEND
-      </button>
+      <button id="new-comment-form" class="new-comment-button" @click="addComment()">SEND</button>
     </div>
   </main>
 </template>
@@ -34,7 +25,6 @@
 import { defineComponent, ref } from "vue";
 import Comments from "@/components/CommentsList.vue";
 import { useStore } from "@/stores/store";
-import type { IComment } from "./models/IComment";
 
 export default defineComponent({
   setup() {
@@ -42,17 +32,9 @@ export default defineComponent({
     const newCommentContent = ref("");
 
     function addComment() {
-      let newComment = <IComment>{};
       // Prevent adding a comment without the content.
       if (newCommentContent.value !== "") {
-        newComment.content = newCommentContent.value;
-        newComment.createdAt = "just now";
-        newComment.id = mainStore.comments.length;
-        newComment.replies = [];
-        newComment.score = 0;
-        newComment.user = mainStore.currentUser;
-
-        mainStore.addComment(newComment);
+        mainStore.addComment(newCommentContent.value);
         // Reset input field after adding comment.
         newCommentContent.value = "";
       }

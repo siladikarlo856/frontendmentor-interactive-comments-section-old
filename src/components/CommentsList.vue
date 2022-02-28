@@ -39,8 +39,8 @@ export default defineComponent({
   setup() {
     const mainStore = useStore();
 
-    function getUserAvatar(imageUrl: string): URL {
-      return new URL(`../${imageUrl}`, import.meta.url);
+    function getUserAvatar(imageUrl: string): string {
+      return new URL(`../${imageUrl}`, import.meta.url).toString();
     }
 
     return {
